@@ -32,8 +32,8 @@ public class RSATest {
     }
 
     @Test
-    public void can_create_5000() {
-        assertNotNull(rsa(5000));
+    public void can_create_2000() {
+        assertNotNull(rsa(2000));
     }
 
     @Test
@@ -49,6 +49,14 @@ public class RSATest {
         RSA rsa = rsa();
         BigInteger signature = rsa.sign(message);
         assertTrue(rsa.verify(message,signature));
+    }
+
+    @Test
+    public void only_key_produces_valid_signature() {
+        BigInteger message = new BigInteger("8675309");
+        RSA rsa = rsa();
+        BigInteger signature = rsa.sign(message);
+        assertFalse(rsa().verify(message,signature));
     }
 
     @Test
