@@ -33,11 +33,16 @@ final class RSA {
    static BigInteger generatePublicKey(BigInteger phi) {
       BigInteger publicKey;
       do publicKey = new BigInteger(phi.bitLength(), random);
-      while (publicKey.compareTo(BigInteger.ONE) <= 0
-              || publicKey.compareTo(phi) >= 0
-              || !publicKey.gcd(phi).equals(BigInteger.ONE));
+      while (unsuitable(publicKey,phi));
       return publicKey;
    }
+
+   static boolean unsuitable(BigInteger publicKey,BigInteger phi) {
+      return   publicKey.compareTo(BigInteger.ONE) <= 0 ||
+               publicKey.compareTo(phi) >= 0            ||
+              !publicKey.gcd(phi).equals(BigInteger.ONE);
+   }
+
 
    BigInteger encrypt(BigInteger message) {
       return message.modPow(publicKey, modulus);
