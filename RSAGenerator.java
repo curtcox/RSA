@@ -26,11 +26,15 @@ final class RSAGenerator {
 
    BigInteger generatePublicKey(BigInteger phi) {
       while (true) {
-         BigInteger publicKey = new BigInteger(phi.bitLength(), random);
+         BigInteger publicKey = possiblePublicKey(phi);
          if (suitable(publicKey,phi)) {
             return  publicKey;
          }
       }
+   }
+
+   BigInteger possiblePublicKey(BigInteger phi) {
+      return new BigInteger(phi.bitLength(), random);
    }
 
    boolean suitable(BigInteger publicKey,BigInteger phi) {
