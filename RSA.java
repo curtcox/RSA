@@ -30,11 +30,10 @@ final class RSA {
    }
 
    public String toString() {
-      String s = "";
-      s += "public  = " + publicKey  + "\n";
-      s += "private = " + privateKey + "\n";
-      s += "modulus = " + modulus;
-      return s;
+      return
+          "public  = " + publicKey  + "\n" +
+          "private = " + privateKey + "\n" +
+          "modulus = " + modulus;
    }
  
 }
