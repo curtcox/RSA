@@ -2,14 +2,12 @@ import java.math.BigInteger;
 
 final class RSA {
 
-   final BigInteger privateKey;
-   final BigInteger publicKey;
-   final BigInteger modulus;
+   final Key privateKey;
+   final Key publicKey;
 
-   RSA(BigInteger publicKey, BigInteger privateKey, BigInteger modulus) {
+   RSA(Key publicKey, Key privateKey) {
       this.publicKey  = publicKey;
       this.privateKey = privateKey;
-      this.modulus    = modulus;
    }
 
    static RSA bitLength(int i) {
@@ -17,15 +15,23 @@ final class RSA {
    }
 
    BigInteger encrypt(BigInteger message) {
-      return message.modPow(publicKey, modulus);
+      return publicKey.map(message);
+   }
+
+   BigInteger verify(BigInteger message) {
+      return publicKey.map(message);
    }
 
    BigInteger decrypt(BigInteger encrypted) {
-      return encrypted.modPow(privateKey, modulus);
+      return privateKey.map(encrypted);
+   }
+
+   BigInteger sign(BigInteger encrypted) {
+      return privateKey.map(encrypted);
    }
 
    public String toString() {
-      return "public=" + publicKey + " private=" + privateKey + " modulus=" + modulus;
+      return "public=" + publicKey + " private=" + privateKey;
    }
 
 }

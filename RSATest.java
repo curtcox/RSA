@@ -8,30 +8,53 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class RSATest {
 
+    RSA rsa() {
+        return rsa(100);
+    }
+
+    RSA rsa(int bitLength) {
+        return RSA.bitLength(bitLength);
+    }
+
     @Test
-    public void can_create() {
-        assertNotNull(RSA.bitLength(10));
+    public void can_create_10() {
+        assertNotNull(rsa(10));
+    }
+
+    @Test
+    public void can_create_100() {
+        assertNotNull(rsa(100));
+    }
+
+    @Test
+    public void can_create_1000() {
+        assertNotNull(rsa(1000));
+    }
+
+    @Test
+    public void can_create_5000() {
+        assertNotNull(rsa(5000));
     }
 
     @Test
     public void message_survives_round_trip() {
         BigInteger message = new BigInteger("8675309");
-        RSA rsa = RSA.bitLength(1000);
+        RSA rsa = rsa();
         assertEquals(message,rsa.decrypt(rsa.encrypt(message)));
     }
 
     @Test
     public void can_use_to_sign() {
         BigInteger message = new BigInteger("8675309");
-        RSA rsa = RSA.bitLength(1000);
-        assertEquals(message,rsa.encrypt(rsa.decrypt(message)));
+        RSA rsa = rsa();
+        assertEquals(message,rsa.verify(rsa.sign(message)));
     }
 
     @Test
     public void only_message_survives_round_trip() {
         BigInteger message = new BigInteger("8675309");
         BigInteger other = new BigInteger("8675310");
-        RSA rsa = RSA.bitLength(1000);
+        RSA rsa = rsa();
         assertNotEquals(other,rsa.decrypt(rsa.encrypt(message)));
     }
 
@@ -40,7 +63,7 @@ public class RSATest {
         Set keys = new HashSet();
         int size = 100;
         for (int i=0; i<size; i++) {
-            RSA rsa = RSA.bitLength(100);
+            RSA rsa = rsa();
             keys.add(rsa.publicKey);
         }
         assertEquals(size,keys.size());
@@ -51,19 +74,30 @@ public class RSATest {
         Set keys = new HashSet();
         int size = 100;
         for (int i=0; i<size; i++) {
-            RSA rsa = RSA.bitLength(100);
+            RSA rsa = rsa();
             keys.add(rsa.privateKey);
         }
         assertEquals(size,keys.size());
     }
 
     @Test
-    public void modulus_is_always_different() {
+    public void private_key_modulus_is_always_different() {
         Set keys = new HashSet();
         int size = 100;
         for (int i=0; i<size; i++) {
-            RSA rsa = RSA.bitLength(100);
-            keys.add(rsa.modulus);
+            RSA rsa = rsa();
+            keys.add(rsa.privateKey.modulus);
+        }
+        assertEquals(size,keys.size());
+    }
+
+    @Test
+    public void public_key_modulus_is_always_different() {
+        Set keys = new HashSet();
+        int size = 100;
+        for (int i=0; i<size; i++) {
+            RSA rsa = rsa();
+            keys.add(rsa.publicKey.modulus);
         }
         assertEquals(size,keys.size());
     }
