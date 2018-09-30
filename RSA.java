@@ -20,8 +20,9 @@ final class RSA {
    // generate an N-bit (roughly) public and private key
    static RSA bitLength(int bits) {
       int bitLength = bits/2;
-      BigInteger p = BigInteger.probablePrime(bitLength, random);
-      BigInteger q = BigInteger.probablePrime(bitLength, random);
+      int certainlyPrime = 100;
+      BigInteger p = new BigInteger(bitLength, certainlyPrime, random);
+      BigInteger q = new BigInteger(bitLength, certainlyPrime, random);
       BigInteger phi = (p.subtract(one)).multiply(q.subtract(one));
       return new RSA(p,q,phi);
    }
