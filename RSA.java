@@ -27,9 +27,9 @@
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
-    
 
 public class RSA {
+   
    private final static BigInteger one      = new BigInteger("1");
    private final static SecureRandom random = new SecureRandom();
 
@@ -68,7 +68,7 @@ public class RSA {
    public static void main(String[] args) {
       int N = Integer.parseInt(args[0]);
       RSA key = new RSA(N);
-      StdOut.println(key);
+      println(key);
  
       // create random message, encrypt and decrypt
       BigInteger message = new BigInteger(N-1, random);
@@ -80,8 +80,12 @@ public class RSA {
 
       BigInteger encrypt = key.encrypt(message);
       BigInteger decrypt = key.decrypt(encrypt);
-      StdOut.println("message   = " + message);
-      StdOut.println("encrypted = " + encrypt);
-      StdOut.println("decrypted = " + decrypt);
+      println("message   = " + message);
+      println("encrypted = " + encrypt);
+      println("decrypted = " + decrypt);
+   }
+
+   static void println(Object message) {
+      System.out.println(message);
    }
 }
