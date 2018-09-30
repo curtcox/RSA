@@ -6,9 +6,9 @@ final class RSA {
    private final static BigInteger one      = new BigInteger("1");
    private final static SecureRandom random = new SecureRandom();
 
-   private BigInteger privateKey;
-   private BigInteger publicKey;
-   private BigInteger modulus;
+   private final BigInteger privateKey;
+   private final BigInteger publicKey;
+   private final BigInteger modulus;
 
    // generate an N-bit (roughly) public and private key
    RSA(int N) {
