@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import java.math.BigInteger;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class RSATest {
 
@@ -8,4 +10,20 @@ public class RSATest {
     public void can_create() {
         assertNotNull(new RSA(10));
     }
+
+    @Test
+    public void message_survives_round_trip() {
+        BigInteger message = new BigInteger("8675309");
+        RSA rsa = new RSA(1000);
+        assertEquals(message,rsa.decrypt(rsa.encrypt(message)));
+    }
+
+    @Test
+    public void only_message_survives_round_trip() {
+        BigInteger message = new BigInteger("8675309");
+        BigInteger other = new BigInteger("8675310");
+        RSA rsa = new RSA(1000);
+        assertNotEquals(other,rsa.decrypt(rsa.encrypt(message)));
+    }
+
 }
