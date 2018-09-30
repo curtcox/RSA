@@ -35,7 +35,7 @@ final class Main {
 
    public static void main(String[] args) {
       int n = Integer.parseInt(args[0]);
-      RSA key = new RSA(n);
+      RSA key = RSA.bitLength(n);
       println(key);
  
       // create random message, encrypt and decrypt

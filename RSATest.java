@@ -8,13 +8,13 @@ public class RSATest {
 
     @Test
     public void can_create() {
-        assertNotNull(new RSA(10));
+        assertNotNull(RSA.bitLength(10));
     }
 
     @Test
     public void message_survives_round_trip() {
         BigInteger message = new BigInteger("8675309");
-        RSA rsa = new RSA(1000);
+        RSA rsa = RSA.bitLength(1000);
         assertEquals(message,rsa.decrypt(rsa.encrypt(message)));
     }
 
@@ -22,7 +22,7 @@ public class RSATest {
     public void only_message_survives_round_trip() {
         BigInteger message = new BigInteger("8675309");
         BigInteger other = new BigInteger("8675310");
-        RSA rsa = new RSA(1000);
+        RSA rsa = RSA.bitLength(1000);
         assertNotEquals(other,rsa.decrypt(rsa.encrypt(message)));
     }
 
