@@ -47,7 +47,8 @@ public class RSATest {
     public void can_use_to_sign() {
         BigInteger message = new BigInteger("8675309");
         RSA rsa = rsa();
-        assertEquals(message,rsa.verify(rsa.sign(message)));
+        BigInteger signature = rsa.sign(message);
+        assertTrue(rsa.verify(message,signature));
     }
 
     @Test

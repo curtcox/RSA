@@ -18,8 +18,8 @@ final class RSA {
       return publicKey.map(message);
    }
 
-   BigInteger verify(BigInteger message) {
-      return publicKey.map(message);
+   boolean verify(BigInteger message, BigInteger signature) {
+      return message.equals(publicKey.map(signature));
    }
 
    BigInteger decrypt(BigInteger encrypted) {
