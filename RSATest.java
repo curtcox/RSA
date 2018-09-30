@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.Test;
 
 import java.math.BigInteger;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,6 +26,39 @@ public class RSATest {
         BigInteger other = new BigInteger("8675310");
         RSA rsa = RSA.bitLength(1000);
         assertNotEquals(other,rsa.decrypt(rsa.encrypt(message)));
+    }
+
+    @Test
+    public void public_key_is_always_different() {
+        Set keys = new HashSet();
+        int size = 100;
+        for (int i=0; i<size; i++) {
+            RSA rsa = RSA.bitLength(100);
+            keys.add(rsa.publicKey);
+        }
+        assertEquals(size,keys.size());
+    }
+
+    @Test
+    public void private_key_is_always_different() {
+        Set keys = new HashSet();
+        int size = 100;
+        for (int i=0; i<size; i++) {
+            RSA rsa = RSA.bitLength(100);
+            keys.add(rsa.privateKey);
+        }
+        assertEquals(size,keys.size());
+    }
+
+    @Test
+    public void modulus_is_always_different() {
+        Set keys = new HashSet();
+        int size = 100;
+        for (int i=0; i<size; i++) {
+            RSA rsa = RSA.bitLength(100);
+            keys.add(rsa.modulus);
+        }
+        assertEquals(size,keys.size());
     }
 
 }

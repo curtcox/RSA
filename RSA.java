@@ -4,17 +4,17 @@ import java.security.SecureRandom;
 final class RSA {
 
 
-   private final BigInteger privateKey;
-   private final BigInteger publicKey;
-   private final BigInteger modulus;
+   final BigInteger privateKey;
+   final BigInteger publicKey;
+   final BigInteger modulus;
 
    private final static BigInteger one      = new BigInteger("1");
    private final static SecureRandom random = new SecureRandom();
 
-   private RSA(BigInteger p, BigInteger q, BigInteger phi) {
-      modulus    = p.multiply(q);                                  
-      publicKey  = new BigInteger("65537");     // common value in practice = 2^16 + 1
-      privateKey = publicKey.modInverse(phi);
+   private RSA(BigInteger publicKey, BigInteger privateKey, BigInteger modulus) {
+      this.publicKey  = publicKey;
+      this.privateKey = privateKey;
+      this.modulus    = modulus;
    }
 
    // generate an N-bit (roughly) public and private key
@@ -24,7 +24,19 @@ final class RSA {
       BigInteger p = new BigInteger(bitLength, certainlyPrime, random);
       BigInteger q = new BigInteger(bitLength, certainlyPrime, random);
       BigInteger phi = (p.subtract(one)).multiply(q.subtract(one));
-      return new RSA(p,q,phi);
+      BigInteger publicKey = generatePublicKey(phi);
+      BigInteger modulus = p.multiply(q);
+      BigInteger privateKey = publicKey.modInverse(phi);
+      return new RSA(publicKey,privateKey,modulus);
+   }
+
+   static BigInteger generatePublicKey(BigInteger phi) {
+      BigInteger publicKey;
+      do publicKey = new BigInteger(phi.bitLength(), random);
+      while (publicKey.compareTo(BigInteger.ONE) <= 0
+              || publicKey.compareTo(phi) >= 0
+              || !publicKey.gcd(phi).equals(BigInteger.ONE));
+      return publicKey;
    }
 
    BigInteger encrypt(BigInteger message) {
