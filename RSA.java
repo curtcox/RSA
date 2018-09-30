@@ -25,10 +25,7 @@ final class RSA {
    }
 
    public String toString() {
-      return
-              "public  = " + publicKey  + "\n" +
-                      "private = " + privateKey + "\n" +
-                      "modulus = " + modulus;
+      return "public=" + publicKey + " private=" + privateKey + " modulus=" + modulus;
    }
 
 }
