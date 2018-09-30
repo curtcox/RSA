@@ -17,8 +17,8 @@ final class RSAGenerator {
       BigInteger q = randomPrime();
       BigInteger phi = (p.subtract(one)).multiply(q.subtract(one));
       BigInteger publicKey = generatePublicKey(phi);
-      BigInteger modulus = p.multiply(q);
       BigInteger privateKey = publicKey.modInverse(phi);
+      BigInteger modulus = p.multiply(q);
       return new RSA(new Key(publicKey,modulus),new Key(privateKey,modulus));
    }
 
@@ -42,7 +42,7 @@ final class RSAGenerator {
 
    boolean suitable(BigInteger publicKey,BigInteger phi) {
       return  publicKey.compareTo(one) > 0 &&
-              publicKey.compareTo(phi) < 0            &&
+              publicKey.compareTo(phi) < 0 &&
               publicKey.gcd(phi).equals(one);
    }
 
