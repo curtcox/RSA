@@ -21,6 +21,13 @@ public class RSATest {
     }
 
     @Test
+    public void can_use_to_sign() {
+        BigInteger message = new BigInteger("8675309");
+        RSA rsa = RSA.bitLength(1000);
+        assertEquals(message,rsa.encrypt(rsa.decrypt(message)));
+    }
+
+    @Test
     public void only_message_survives_round_trip() {
         BigInteger message = new BigInteger("8675309");
         BigInteger other = new BigInteger("8675310");
