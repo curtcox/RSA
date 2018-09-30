@@ -3,25 +3,28 @@ import java.security.SecureRandom;
 
 final class RSAGenerator {
 
-   private int bits;
+   private final int bitLength;
    private static final BigInteger      one = new BigInteger("1");
    private static final SecureRandom random = new SecureRandom();
 
    // generate an N-bit (roughly) public and private key
    RSAGenerator(int bits) {
-      this.bits = bits;
+      bitLength = bits/2;
    }
 
    RSA generate() {
-      int bitLength = bits/2;
-      int certainlyPrime = 100;
-      BigInteger p = new BigInteger(bitLength, certainlyPrime, random);
-      BigInteger q = new BigInteger(bitLength, certainlyPrime, random);
+      BigInteger p = randomPrime();
+      BigInteger q = randomPrime();
       BigInteger phi = (p.subtract(one)).multiply(q.subtract(one));
       BigInteger publicKey = generatePublicKey(phi);
       BigInteger modulus = p.multiply(q);
       BigInteger privateKey = publicKey.modInverse(phi);
       return new RSA(publicKey,privateKey,modulus);
+   }
+
+   BigInteger randomPrime() {
+      int certainlyPrime = 100;
+      return new BigInteger(bitLength, certainlyPrime, random);
    }
 
    BigInteger generatePublicKey(BigInteger phi) {
