@@ -1,9 +1,6 @@
 import org.junit.jupiter.api.Test;
 
-import java.math.BigInteger;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class RSAGeneratorTest {
 
@@ -14,42 +11,35 @@ public class RSAGeneratorTest {
 
     @Test
     public void key_sizes_80() {
-        RSAGenerator generator = new RSAGenerator(80);
-        RSA rsa = generator.generate();
-        assertSize(10,rsa.publicKey);
-        assertSize(10,rsa.privateKey);
+        assertKeyBitSizes(80);
     }
 
     @Test
     public void key_sizes_800() {
-        RSAGenerator generator = new RSAGenerator(800);
-        RSA rsa = generator.generate();
-        assertSize(100,rsa.publicKey);
-        assertSize(100,rsa.privateKey);
+        assertKeyBitSizes(800);
     }
 
     @Test
     public void key_sizes_1024() {
-        RSAGenerator generator = new RSAGenerator(1024);
-        RSA rsa = generator.generate();
-        assertSize(128,rsa.publicKey);
-        assertSize(128,rsa.privateKey);
+        assertKeyBitSizes(1024);
     }
 
     @Test
     public void key_sizes_1600() {
-        RSAGenerator generator = new RSAGenerator(1600);
-        RSA rsa = generator.generate();
-        assertSize(200,rsa.publicKey);
-        assertSize(200,rsa.privateKey);
+        assertKeyBitSizes(1600);
     }
 
     @Test
     public void key_sizes_3200() {
-        RSAGenerator generator = new RSAGenerator(3200);
+        assertKeyBitSizes(3200);
+    }
+
+    void assertKeyBitSizes(int bits) {
+        RSAGenerator generator = new RSAGenerator(bits);
         RSA rsa = generator.generate();
-        assertSize(400,rsa.publicKey);
-        assertSize(400,rsa.privateKey);
+        int size = bits / 8;
+        assertSize(size,rsa.publicKey.key);
+        assertSize(size,rsa.privateKey.key);
     }
 
     private void assertSize(int size, Key key) {

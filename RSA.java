@@ -2,10 +2,10 @@ import java.math.BigInteger;
 
 final class RSA {
 
-   final Key privateKey;
-   final Key publicKey;
+   final PrivateKey privateKey;
+   final PublicKey publicKey;
 
-   RSA(Key publicKey, Key privateKey) {
+   RSA(PublicKey publicKey, PrivateKey privateKey) {
       this.publicKey  = publicKey;
       this.privateKey = privateKey;
    }
@@ -15,19 +15,19 @@ final class RSA {
    }
 
    BigInteger encrypt(BigInteger message) {
-      return publicKey.map(message);
+      return publicKey.encrypt(message);
    }
 
    boolean verify(BigInteger message, BigInteger signature) {
-      return message.equals(publicKey.map(signature));
+      return publicKey.verify(message,signature);
    }
 
    BigInteger decrypt(BigInteger encrypted) {
-      return privateKey.map(encrypted);
+      return privateKey.decrypt(encrypted);
    }
 
    BigInteger sign(BigInteger encrypted) {
-      return privateKey.map(encrypted);
+      return privateKey.sign(encrypted);
    }
 
    public String toString() {

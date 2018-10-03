@@ -95,7 +95,7 @@ public class RSATest {
         int size = 100;
         for (int i=0; i<size; i++) {
             RSA rsa = rsa();
-            keys.add(rsa.privateKey.modulus);
+            keys.add(rsa.privateKey.key.modulus);
         }
         assertEquals(size,keys.size());
     }
@@ -106,7 +106,7 @@ public class RSATest {
         int size = 100;
         for (int i=0; i<size; i++) {
             RSA rsa = rsa();
-            keys.add(rsa.publicKey.modulus);
+            keys.add(rsa.publicKey.key.modulus);
         }
         assertEquals(size,keys.size());
     }

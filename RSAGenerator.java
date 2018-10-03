@@ -19,7 +19,9 @@ final class RSAGenerator {
       BigInteger publicKey = generatePublicKey(phi);
       BigInteger privateKey = publicKey.modInverse(phi);
       BigInteger modulus = p.multiply(q);
-      return new RSA(new Key(publicKey,modulus),new Key(privateKey,modulus));
+      return new RSA(
+              new PublicKey(new Key(publicKey,modulus)),
+              new PrivateKey(new Key(privateKey,modulus)));
    }
 
    BigInteger randomPrime() {
