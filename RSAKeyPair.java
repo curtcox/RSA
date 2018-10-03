@@ -1,16 +1,16 @@
 import java.math.BigInteger;
 
-final class RSA {
+final class RSAKeyPair {
 
    final PrivateKey privateKey;
    final PublicKey publicKey;
 
-   RSA(PublicKey publicKey, PrivateKey privateKey) {
+   RSAKeyPair(PublicKey publicKey, PrivateKey privateKey) {
       this.publicKey  = publicKey;
       this.privateKey = privateKey;
    }
 
-   static RSA bitLength(int i) {
+   static RSAKeyPair bitLength(int i) {
       return new RSAGenerator(i).generate();
    }
 

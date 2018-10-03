@@ -36,7 +36,7 @@ public class RSAGeneratorTest {
 
     void assertKeyBitSizes(int bits) {
         RSAGenerator generator = new RSAGenerator(bits);
-        RSA rsa = generator.generate();
+        RSAKeyPair rsa = generator.generate();
         int size = bits / 8;
         assertSize(size,rsa.publicKey.key);
         assertSize(size,rsa.privateKey.key);

@@ -8,12 +8,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class RSATest {
 
-    RSA rsa() {
+    RSAKeyPair rsa() {
         return rsa(100);
     }
 
-    RSA rsa(int bitLength) {
-        return RSA.bitLength(bitLength);
+    RSAKeyPair rsa(int bitLength) {
+        return RSAKeyPair.bitLength(bitLength);
     }
 
     @Test
@@ -39,14 +39,14 @@ public class RSATest {
     @Test
     public void message_survives_round_trip() {
         BigInteger message = new BigInteger("8675309");
-        RSA rsa = rsa();
+        RSAKeyPair rsa = rsa();
         assertEquals(message,rsa.decrypt(rsa.encrypt(message)));
     }
 
     @Test
     public void can_use_to_sign() {
         BigInteger message = new BigInteger("8675309");
-        RSA rsa = rsa();
+        RSAKeyPair rsa = rsa();
         BigInteger signature = rsa.sign(message);
         assertTrue(rsa.verify(message,signature));
     }
@@ -54,7 +54,7 @@ public class RSATest {
     @Test
     public void only_key_produces_valid_signature() {
         BigInteger message = new BigInteger("8675309");
-        RSA rsa = rsa();
+        RSAKeyPair rsa = rsa();
         BigInteger signature = rsa.sign(message);
         assertFalse(rsa().verify(message,signature));
     }
@@ -63,7 +63,7 @@ public class RSATest {
     public void only_message_survives_round_trip() {
         BigInteger message = new BigInteger("8675309");
         BigInteger other = new BigInteger("8675310");
-        RSA rsa = rsa();
+        RSAKeyPair rsa = rsa();
         assertNotEquals(other,rsa.decrypt(rsa.encrypt(message)));
     }
 
@@ -72,7 +72,7 @@ public class RSATest {
         Set keys = new HashSet();
         int size = 100;
         for (int i=0; i<size; i++) {
-            RSA rsa = rsa();
+            RSAKeyPair rsa = rsa();
             keys.add(rsa.publicKey);
         }
         assertEquals(size,keys.size());
@@ -83,7 +83,7 @@ public class RSATest {
         Set keys = new HashSet();
         int size = 100;
         for (int i=0; i<size; i++) {
-            RSA rsa = rsa();
+            RSAKeyPair rsa = rsa();
             keys.add(rsa.privateKey);
         }
         assertEquals(size,keys.size());
@@ -94,7 +94,7 @@ public class RSATest {
         Set keys = new HashSet();
         int size = 100;
         for (int i=0; i<size; i++) {
-            RSA rsa = rsa();
+            RSAKeyPair rsa = rsa();
             keys.add(rsa.privateKey.key.modulus);
         }
         assertEquals(size,keys.size());
@@ -105,7 +105,7 @@ public class RSATest {
         Set keys = new HashSet();
         int size = 100;
         for (int i=0; i<size; i++) {
-            RSA rsa = rsa();
+            RSAKeyPair rsa = rsa();
             keys.add(rsa.publicKey.key.modulus);
         }
         assertEquals(size,keys.size());

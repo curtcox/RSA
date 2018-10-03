@@ -12,14 +12,14 @@ final class RSAGenerator {
       bitLength = bits/2;
    }
 
-   RSA generate() {
+   RSAKeyPair generate() {
       BigInteger p = randomPrime();
       BigInteger q = randomPrime();
       BigInteger phi = (p.subtract(one)).multiply(q.subtract(one));
       BigInteger publicKey = generatePublicKey(phi);
       BigInteger privateKey = publicKey.modInverse(phi);
       BigInteger modulus = p.multiply(q);
-      return new RSA(
+      return new RSAKeyPair(
               new PublicKey(new Key(publicKey,modulus)),
               new PrivateKey(new Key(privateKey,modulus)));
    }

@@ -1,11 +1,11 @@
 /******************************************************************************
- *  Compilation:  javac RSA.java
- *  Execution:    java RSA N
+ *  Compilation:  javac RSAKeyPair.java
+ *  Execution:    java RSAKeyPair N
  *  
- *  Generate an N-bit public and private RSA key and use to encrypt
+ *  Generate an N-bit public and private RSAKeyPair key and use to encrypt
  *  and decrypt a random message.
  * 
- *  % java RSA 50
+ *  % java RSAKeyPair 50
  *  public  = 65537
  *  private = 553699199426609
  *  modulus = 825641896390631
@@ -35,7 +35,7 @@ final class Main {
 
    public static void main(String[] args) {
       int n = Integer.parseInt(args[0]);
-      RSA key = RSA.bitLength(n);
+      RSAKeyPair key = RSAKeyPair.bitLength(n);
       println(key);
  
       // create random message, encrypt and decrypt
